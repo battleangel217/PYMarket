@@ -45,7 +45,8 @@
     <nav class="nav">
       <div class="container">
         <div class="nav-content">
-          <a href="/" class="nav-link">Home</a>
+          <a href="index.html" class="nav-link">Home</a>
+
           <a href="products.html" class="nav-link">All Products</a>
           <a href="categories.html?category=electronics" class="nav-link">Electronics</a>
           <a href="categories.html?category=fashion" class="nav-link">Fashion</a>
@@ -143,7 +144,7 @@
       </div>
     </footer>
 
-    <script src="jsauth.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/products.js"></script>
     <script>
@@ -165,9 +166,9 @@
             .map(
               (item) => `
             <div class="cart-item">
-              <img src="${item.image}" alt="${item.name}" class="cart-item-img" style="cursor: pointer;" onclick="window.location.href='/product-detail.html?id=${item.id}'">
+              <img src="${item.image}" alt="${item.name}" class="cart-item-img" style="cursor: pointer;" onclick="window.location.href='product-detail.html?id=${item.id}'">
               <div class="cart-item-details">
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; cursor: pointer;" onclick="window.location.href='/product-detail.html?id=${item.id}'">${item.name}</h3>
+                <h3 style="font-size: 1.125rem; margin-bottom: 0.5rem; cursor: pointer;" onclick="window.location.href='product-detail.html?id=${item.id}'">${item.name}</h3>
                 <p class="text-muted" style="margin-bottom: 0.5rem;">$${item.price.toFixed(2)} each</p>
                 <p style="font-weight: 600; color: var(--primary);">$${(item.price * item.quantity).toFixed(2)}</p>
               </div>

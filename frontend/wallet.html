@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Wallet - PYMarket</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+     <!-- Header  -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo">PYMarket</a>
+
+          <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search products..." id="searchInput" />
+          </div>
+
+          <div class="header-actions">
+            <div class="auth-buttons" style="display: flex; gap: 0.5rem">
+              <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+              <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+            </div>
+
+            <div class="user-menu" style="display: none">
+              <span class="user-name" style="margin-right: 1rem; font-weight: 500"></span>
+              <button class="btn btn-secondary btn-sm" onclick="authManager.logout()">Logout</button>
+            </div>
+
+            <a href="wallet.html" class="wallet-button" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 500;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+              <span class="wallet-balance">$0.00</span>
+            </a>
+
+            <a href="cart.html" class="cart-button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span class="cart-badge" style="display: none">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+     <!-- Navigation  -->
+    <nav class="nav">
+      <div class="container">
+        <div class="nav-content">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="products.html" class="nav-link">All Products</a>
+          <a href="categories.html?category=electronics" class="nav-link">Electronics</a>
+          <a href="categories.html?category=fashion" class="nav-link">Fashion</a>
+          <a href="categories.html?category=home-garden" class="nav-link">Home & Garden</a>
+          <a href="categories.html?category=books" class="nav-link">Books</a>
+          <a href="vendor/dashboard.html" class="nav-link" id="vendorLink" style="display: none">Vendor Dashboard</a>
+        </div>
+      </div>
+    </nav>
+
+     <!-- Wallet Content  -->
+    <div class="container py-4">
+      <h1 style="margin-bottom: 2rem">My Wallet</h1>
+
+       <!-- Balance Card  -->
+      <div class="card" style="padding: 2rem; margin-bottom: 2rem; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <p style="font-size: 0.875rem; opacity: 0.9; margin-bottom: 0.5rem;">Available Balance</p>
+            <h2 style="font-size: 2.5rem; font-weight: 700; margin: 0;" class="wallet-balance">$0.00</h2>
+          </div>
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.3;">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+         <!-- Add Money Section  -->
+        <div class="card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <!-- Add Money -->
+          </h3>
+          <form id="addMoneyForm">
+            <div class="form-group">
+              <label for="addAmount" class="form-label">Amount</label>
+              <input type="number" id="addAmount" class="form-input" placeholder="Enter amount" min="1" step="0.01" required />
+            </div>
+            <div class="form-group">
+              <label for="addDescription" class="form-label">Description (Optional)</label>
+              <input type="text" id="addDescription" class="form-input" placeholder="e.g., Monthly deposit" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Add Money</button>
+          </form>
+        </div>
+
+         <!-- Withdraw Money Section  -->
+        <div class="card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <!-- Withdraw Money -->
+          </h3>
+          <form id="withdrawForm">
+            <div class="form-group">
+              <label for="withdrawAmount" class="form-label">Amount</label>
+              <input type="number" id="withdrawAmount" class="form-input" placeholder="Enter amount" min="1" step="0.01" required />
+            </div>
+            <div class="form-group">
+              <label for="withdrawDescription" class="form-label">Description (Optional)</label>
+              <input type="text" id="withdrawDescription" class="form-input" placeholder="e.g., Bank transfer" />
+            </div>
+            <button type="submit" class="btn btn-secondary" style="width: 100%;">Withdraw Money</button>
+          </form>
+        </div>
+      </div>
+
+       <!-- Transaction History  -->
+      <div class="card" style="padding: 2rem;">
+        <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <!-- Transaction History -->
+        </h3>
+        <div id="transactionsList">
+          <p class="text-muted text-center" style="padding: 2rem;">No transactions yet</p>
+        </div>
+      </div>
+    </div>
+
+     <!-- Footer  -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>About PYMarket</h4>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem">
+              Your trusted online marketplace connecting buyers with quality vendors.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="categories.html">Categories</a></li>
+              <li><a href="signup.html">Become a Vendor</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 PYMarket. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wallet.js"></script>
+    <script src="js/products.js"></script>
+    <script>
+      // Show vendor link if user is a vendor
+      if (authManager.isVendor()) {
+        document.getElementById('vendorLink').style.display = 'block';
+      }
+
+      // Render transactions
+      function renderTransactions() {
+        const transactions = walletManager.getTransactions();
+        const transactionsList = document.getElementById('transactionsList');
+
+        if (transactions.length === 0) {
+          transactionsList.innerHTML = '<p class="text-muted text-center" style="padding: 2rem;">No transactions yet</p>';
+          return;
+        }
+
+        transactionsList.innerHTML = transactions.map(transaction => {
+          const date = new Date(transaction.date);
+          const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+          const isCredit = transaction.type === 'credit';
+          
+          return `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-bottom: 1px solid var(--border); ${transactions.indexOf(transaction) === 0 ? 'border-top: 1px solid var(--border);' : ''}">
+              <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: ${isCredit ? '#10b981' : '#ef4444'}20; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${isCredit ? '#10b981' : '#ef4444'}" stroke-width="2">
+                    ${isCredit 
+                      ? '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>'
+                      : '<line x1="5" y1="12" x2="19" y2="12"></line>'
+                    }
+                  </svg>
+                </div>
+                <div>
+                  <p style="font-weight: 500; margin-bottom: 0.25rem;">${transaction.description}</p>
+                  <p class="text-muted" style="font-size: 0.875rem;">${formattedDate}</p>
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <p style="font-weight: 600; font-size: 1.125rem; color: ${isCredit ? '#10b981' : '#ef4444'};">
+                  ${isCredit ? '+' : '-'}$${transaction.amount.toFixed(2)}
+                </p>
+                <p class="text-muted" style="font-size: 0.875rem;">Balance: $${transaction.balance.toFixed(2)}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Handle add money form
+      document.getElementById('addMoneyForm').addEventListener('submit', async(e) => {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('addAmount').value);
+        const description = document.getElementById('addDescription').value || 'Deposit';
+        const accessToken = localStorage.getItem('access_token')
+
+        const userData = {
+          amount: amount
+        }
+
+        if (amount > 0) {
+          const response = await fetch('http://127.0.0.1:8000/paystack/',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+              },
+              body: JSON.stringify(userData)
+            });
+
+            if (!response.ok) throw new Error(response.statusText);
+
+            walletManager.addMoney(amount, description);
+            document.getElementById('addMoneyForm').reset();
+            renderTransactions();
+            alert(`Successfully added $${amount.toFixed(2)} to your wallet!`);
+
+
+
+        }
+      });
+
+      // Handle withdraw form
+      document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const amount = parseFloat(document.getElementById('withdrawAmount').value);
+        const description = document.getElementById('withdrawDescription').value || 'Withdrawal';
+        
+        if (amount > 0) {
+          const success = walletManager.withdraw(amount, description);
+          if (success) {
+            document.getElementById('withdrawForm').reset();
+            renderTransactions();
+            alert(`Successfully withdrew $${amount.toFixed(2)} from your wallet!`);
+          } else {
+            alert('Insufficient balance!');
+          }
+        }
+      });
+
+      // Initial render
+      renderTransactions();
+
+      // Search functionality
+      document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const query = e.target.value;
+          window.location.href = `products.html?search=${encodeURIComponent(query)}`;
+        }
+      });
+    </script>
+  </body>
+</html>

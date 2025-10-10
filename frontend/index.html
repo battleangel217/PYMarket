@@ -29,6 +29,15 @@
               <button class="btn btn-secondary btn-sm" onclick="authManager.logout()">Logout</button>
             </div>
 
+            <!-- Added wallet button to header -->
+            <a href="wallet.html" class="wallet-button" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 500;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+              </svg>
+              <span class="wallet-balance">$0.00</span>
+            </a>
+
             <a href="cart.html" class="cart-button">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -46,7 +55,7 @@
     <nav class="nav">
       <div class="container">
         <div class="nav-content">
-          <a href="/" class="nav-link active">Home</a>
+          <a href="index.html" class="nav-link active">Home</a>
           <a href="products.html" class="nav-link">All Products</a>
           <a href="categories.html?category=electronics" class="nav-link">Electronics</a>
           <a href="categories.html?category=fashion" class="nav-link">Fashion</a>
@@ -283,8 +292,10 @@
       </div>
     </footer>
 
-    <script src="jsauth.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/cart.js"></script>
+    <!-- Added wallet.js script -->
+    <script src="js/wallet.js"></script>
     <script src="js/products.js"></script>
     <script>
       // Show vendor link if user is a vendor

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'account',
+    'paymentapp'
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,6 @@ AUTHENTICATION_BACKENDS = [
 
 
 AUTH_USER_MODEL = 'account.Profile'
+
+
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')

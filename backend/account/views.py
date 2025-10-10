@@ -17,7 +17,7 @@ from django.contrib.auth import get_user_model
 from .models import Profile, EmailVerification, ResetPassword, ResetPasswordValuationToken
 from .serializers import UserSerializer, ProfileSerializer, OTPVerificationSerializer, EditProfileSerializer
 import os
-
+from paymentapp.models import WalletModel
 import dotenv
 
 dotenv.load_dotenv()
@@ -38,6 +38,9 @@ class RegisterUser(APIView):
                     
                     account.email_verified = True
                     account.save()
+                    data = ProfileSerializer(account).data
+                    WalletModel.objects.create(user_id=data['id'], balance=0)
+
                     
                     refresh = RefreshToken.for_user(account)
                     
@@ -45,7 +48,7 @@ class RegisterUser(APIView):
                         {
                             "message": "Account successfully created",
                             "state": True,
-                            "user": ProfileSerializer(account).data,
+                            "user": data,
                             "refresh_token": str(refresh),
                             "access_token": str(refresh.access_token)
                         },
