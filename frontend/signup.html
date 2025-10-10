@@ -38,8 +38,8 @@
           <div class="form-group">
             <label for="role" class="form-label">Account Type</label>
             <select id="role" class="form-select" required>
-              <option value="buyer">Buyer</option>
-              <option value="vendor">Vendor</option>
+              <option value="Buyer">Buyer</option>
+              <option value="Vendor">Vendor</option>
             </select>
           </div>
 
@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <script src="jsauth.js"></script>
+    <script src="js/auth.js"></script>
     <script>
       // Show/hide business name field based on role
       document.getElementById("role").addEventListener("change", function (e) {
@@ -75,7 +75,7 @@
         }
       })
 
-      document.getElementById("signupForm").addEventListener("submit", function (e) {
+      document.getElementById("signupForm").addEventListener("submit", async (e) => {
         e.preventDefault()
 
         const email = document.getElementById("email").value
@@ -84,6 +84,13 @@
         const confirmPassword = document.getElementById("confirmPassword").value
         const role = document.getElementById("role").value
         const businessName = document.getElementById("businessName").value
+
+        const userData = {
+          username: username,
+          email: email,
+          password: password,
+          account_type: role
+        }
 
         if (password !== confirmPassword) {
           alert("Passwords do not match!")
@@ -94,15 +101,41 @@
           alert("Business name is required for vendor accounts!")
           return
         }
+        try{
+          const response = await fetch('http://127.0.0.1:8000/auth/register/',
+          {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(userData)
+          });
 
-        try {
-          authManager.signup(email, password, role, businessName, username)
-          alert("Account created successfully!")
-          window.location.href = "/"
-        } catch (error) {
-          alert("Signup failed. Please try again.")
-        }
-      })
+          if (!response.ok) throw new Error('Signup failed');
+          const data = await response.json();
+
+          saveTokens(data.refresh_token, data.access_token)
+          window.location.href = "index.html"
+
+        }catch (error) {
+          console.log(error);
+          alert('Error during signup')
+        };
+
+      });
+
+
+      //   try {
+      //     authManager.signup(email, password, role, businessName, username)
+      //     alert("Account created successfully!")
+      //     window.location.href = "/"
+      //   } catch (error) {
+      //     alert("Signup failed. Please try again.")
+      //   }
+      // });
+
+      function saveTokens(access, refresh){
+        localStorage.setItem('access_token', access);
+        localStorage.setItem('refresh_token', refresh);
+      };
     </script>
   </body>
 </html>

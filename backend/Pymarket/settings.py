@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'djoser'
+    'djoser',
+    'account',
+    'paymentapp'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOCAL_URL = os.environ.get("LOCAL_URL")
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.utils.EmailOrUsernameBackend',
+]
+
+
+AUTH_USER_MODEL = 'account.Profile'
+
+
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
