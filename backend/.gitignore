@@ -6,3 +6,5 @@ venv/
 migrations/
 .env
 .env
+
+db.sqlite3
