@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Product - PYMarket</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+     Header 
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+                    <a href="index.html" class="logo">PYMarket</a>
+
+
+          <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search products..." id="searchInput" />
+          </div>
+
+          <div class="header-actions">
+            <div class="auth-buttons" style="display: flex; gap: 0.5rem">
+              <a href="login.html" class="btn btn-secondary btn-sm">Login</a>
+              <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+            </div>
+
+            <div class="user-menu" style="display: none">
+              <span class="user-name" style="margin-right: 1rem; font-weight: 500"></span>
+              <button class="btn btn-secondary btn-sm" onclick="authManager.logout()">Logout</button>
+            </div>
+
+            <a href="cart.html" class="cart-button">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span class="cart-badge" style="display: none">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+     Vendor Navigation 
+    <nav class="nav">
+      <div class="container">
+        <div class="nav-content">
+          <a href="vendor/dashboard.html" class="nav-link">Dashboard</a>
+          <a href="vendorproducts.html" class="nav-link">My Products</a>
+          <a href="vendor/add-product.html" class="nav-link">Add Product</a>
+          <a href="vendor/orders.html" class="nav-link">Orders</a>
+          <a href="/" class="nav-link">Back to Store</a>
+        </div>
+      </div>
+    </nav>
+
+     Edit Product Content 
+    <div class="container py-4">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem">
+        <h1>Edit Product</h1>
+        <a href="vendorproducts.html" class="btn btn-secondary">Back to Products</a>
+      </div>
+
+      <div class="card" style="padding: 2rem">
+        <form id="editProductForm">
+           Product Name 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="productName">Product Name</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggleName" onchange="toggleField('productName')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <input
+              type="text"
+              id="productName"
+              class="form-input"
+              placeholder="Enter product name"
+              disabled
+              required
+            />
+          </div>
+
+           Description 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="description">Description</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggleDescription" onchange="toggleField('description')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <textarea
+              id="description"
+              class="form-input"
+              rows="4"
+              placeholder="Enter product description"
+              disabled
+              required
+            ></textarea>
+          </div>
+
+           Category 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="category">Category</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggleCategory" onchange="toggleField('category')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <select id="category" class="form-input" disabled required>
+              <option value="">Select a category</option>
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home-garden">Home & Garden</option>
+              <option value="books">Books</option>
+            </select>
+          </div>
+
+           Price 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="price">Price ($)</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="togglePrice" onchange="toggleField('price')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <input
+              type="number"
+              id="price"
+              class="form-input"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              disabled
+              required
+            />
+          </div>
+
+           Stock 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="stock">Stock Quantity</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggleStock" onchange="toggleField('stock')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <input type="number" id="stock" class="form-input" placeholder="0" min="0" disabled required />
+          </div>
+
+           Image URL 
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+              <label for="imageUrl">Image URL</label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggleImageUrl" onchange="toggleField('imageUrl')" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <input
+              type="url"
+              id="imageUrl"
+              class="form-input"
+              placeholder="https://example.com/image.jpg"
+              disabled
+            />
+          </div>
+
+           Image Preview 
+          <div class="form-group">
+            <label>Current Image</label>
+            <div style="margin-top: 0.5rem">
+              <img
+                id="imagePreview"
+                src="/placeholder.svg"
+                alt="Product preview"
+                style="max-width: 300px; max-height: 300px; object-fit: cover; border-radius: 0.5rem; border: 1px solid #e5e7eb"
+              />
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 2rem">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="vendorproducts.html" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+     Footer 
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>About PYMarket</h4>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem">
+              Your trusted online marketplace connecting buyers with quality vendors.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="categories.html">Categories</a></li>
+              <li><a href="signup.html">Become a Vendor</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 PYMarket. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="jsauth.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script>
+      // Check if user is a vendor
+      if (!authManager.requireVendor()) {
+        // Will redirect if not vendor
+      }
+
+      // Get product ID from URL
+      const urlParams = new URLSearchParams(window.location.search)
+      const productId = parseInt(urlParams.get("id"))
+
+      if (!productId) {
+        alert("Product not found")
+        window.location.href = "/vendorproducts.html"
+      }
+
+      // Load product data
+      const product = getProductById(productId)
+
+      if (!product) {
+        alert("Product not found")
+        window.location.href = "/vendorproducts.html"
+      }
+
+      // Populate form with product data
+      document.getElementById("productName").value = product.name
+      document.getElementById("description").value = product.description
+      document.getElementById("category").value = product.category
+      document.getElementById("price").value = product.price
+      document.getElementById("stock").value = product.stock
+      document.getElementById("imageUrl").value = product.image
+      document.getElementById("imagePreview").src = product.image
+
+      // Toggle field enable/disable
+      function toggleField(fieldId) {
+        const field = document.getElementById(fieldId)
+        const toggleId = "toggle" + fieldId.charAt(0).toUpperCase() + fieldId.slice(1)
+        const toggle = document.getElementById(toggleId)
+
+        field.disabled = !toggle.checked
+
+        if (toggle.checked) {
+          field.focus()
+        }
+      }
+
+      // Update image preview when URL changes
+      document.getElementById("imageUrl").addEventListener("input", function (e) {
+        const preview = document.getElementById("imagePreview")
+        if (e.target.value) {
+          preview.src = e.target.value
+        } else {
+          preview.src = product.image
+        }
+      })
+
+      // Handle form submission
+      document.getElementById("editProductForm").addEventListener("submit", function (e) {
+        e.preventDefault()
+
+        // Get updated values
+        const updatedProduct = {
+          id: productId,
+          name: document.getElementById("productName").value,
+          description: document.getElementById("description").value,
+          category: document.getElementById("category").value,
+          price: parseFloat(document.getElementById("price").value),
+          stock: parseInt(document.getElementById("stock").value),
+          image: document.getElementById("imageUrl").value || product.image,
+        }
+
+        // In a real app, send update request to backend
+        console.log("Updated product:", updatedProduct)
+        alert("Product updated successfully!")
+        window.location.href = "vendorproducts.html"
+      })
+
+      // Search functionality
+      document.getElementById("searchInput").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const query = e.target.value
+          window.location.href = `products.html?search=${encodeURIComponent(query)}`
+        }
+      })
+    </script>
+  </body>
+</html>
